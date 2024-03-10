@@ -1,36 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <div class="container">
-      <h1>Bienvenue chez {{ companyName }}</h1>
-      <p>{{ companyDescription }}</p>
-      <div>
-        <h2>Nos Services</h2>
-        <ul>
-          <li>Audit de sécurité</li>
-          <li>Conseil en sécurité informatique</li>
-          <li>Protection contre les cyberattaques</li>
-          <li>Formation en cybersécurité</li>
-        </ul>
-      </div>
-      <div>
-        <h2>Contactez-nous</h2>
-        <p>Email: contact@fares-tech-secure.com</p>
-        <p>Téléphone: +123456789</p>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .container { font-family: Arial, sans-serif; margin: 20px; }
-    h1 { color: #0275d8; }
-    h2 { color: #5cb85c; }
-    ul { list-style-type: none; padding: 0; }
-    li { padding: 4px; }
-  `]
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({
+        opacity: 0
+      })),
+      transition('void <=> *', animate(2000)),
+    ])
+  ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   companyName = 'Fares Tech Secure';
   companyDescription = `Fares Tech Secure est une entreprise leader dans le domaine de la cybersécurité, offrant une gamme complète de services pour protéger votre entreprise contre les cybermenaces.`;
+  
+  ngOnInit(): void {}
+
+  @HostListener('window:scroll', ['$event'])
+  checkScroll() {
+    const components = document.querySelectorAll('.animated');
+    const scrollTop = window.pageYOffset;
+
+    components.forEach((component) => {
+      const element = component as HTMLElement;
+      const elementOffset = element.offsetTop;
+      const distance = (elementOffset - scrollTop) - window.innerHeight;
+      if (distance < 0) {
+        element.classList.add('active');
+      } else {
+        element.classList.remove('active');
+      }
+    });
+  }
 }
