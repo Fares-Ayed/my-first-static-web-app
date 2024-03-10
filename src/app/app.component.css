@@ -1,0 +1,30 @@
+.container {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  text-align: center;
+}
+.logo {
+  width: 150px;
+  margin: 0 auto 20px;
+  display: block;
+}
+h1 {
+  color: #0275d8;
+}
+h2 {
+  color: #5cb85c;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  padding: 4px;
+}
+.animated {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+.active {
+  opacity: 1;
+}
